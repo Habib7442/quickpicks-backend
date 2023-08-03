@@ -156,7 +156,7 @@ app.get("/electronics", async (req, res) => {
   }
 });
 
-const port = 3000; // Your desired port number
+const port = 9000; // Your desired port number
 
 app.get("/", (req, res) => {
   res.send("Hello, Appwrite!");
