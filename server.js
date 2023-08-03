@@ -156,6 +156,51 @@ app.get("/electronics", async (req, res) => {
     });
   }
 });
+// Define a function to get collection ID based on category
+const getCategoryCollectionId = (category) => {
+  switch (category.toLowerCase()) {
+    case "men":
+      return menCollection;
+    case "women":
+      return womenCollection;
+    case "beauty & skin care":
+      return beautyCollection;
+    case "kids":
+      return kidsCollection;
+    case "fitness & gym":
+      return fitnessCollection;
+    case "electronics":
+      return electronicsCollection;
+    default:
+      return ""; // Return default collection ID or handle error here
+  }
+};
+
+// Example route to make a request to Appwrite and fetch documents from the "categories" collection
+app.get("/products/:category", async (req, res) => {
+  try {
+    const category = req.params.category;
+
+    // Fetch data from the category collection
+    const databases = new Databases(client);
+    const response = await databases.listDocuments(
+      database, // Replace with your database ID
+      getCategoryCollectionId(category)
+    );
+
+    // Send the products data as a JSON response
+    res.json(response.documents);
+  } catch (error) {
+    // Handle any errors and send an error response
+    console.error("Error fetching products:", error);
+    res.status(500).json({
+      error: "Failed to fetch products from the collection",
+      errorDetails: error,
+    });
+  }
+});
+
+
 
 const port = 9000; // Your desired port number
 
