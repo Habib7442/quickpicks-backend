@@ -1,6 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const { Client, Databases } = require("node-appwrite");
+
 require("dotenv").config();
 
 const endpoint = process.env.DATABASE_END_POINT;
@@ -165,3 +166,5 @@ app.get("/", (req, res) => {
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
 });
+
+
